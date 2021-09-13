@@ -1,7 +1,7 @@
 #Hoang Duy Nguyen
 #Bachelor thesis
 #2021Jul16
-#DESeq2 analysis for Lena microglia bulk RNA-seq data
+#DESeq2 analysis for microglia bulk RNA-seq data
 #all samples
 #outlier MGcKO_Ctrl 18 and 20
 #analysis under r_backup_env
