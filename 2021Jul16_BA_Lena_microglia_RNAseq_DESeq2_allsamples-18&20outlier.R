@@ -11,12 +11,12 @@ library(DESeq2)
 library(ggplot2)
 
 #read in data
-count.list<-list.files(path = "/Users/hoangduy/Documents/Data_Analyse_Ting/featureCounts on collection 55: Counts",
+count.list<-list.files(path = "./featureCounts on collection 55: Counts",
                        pattern = "tabular")
-meta.data<-read.csv("/Users/hoangduy/Library/Mobile Documents/com~apple~CloudDocs/Uni/Molmed/Ting's Tag/Data_Analyse_Practice_Ting.csv")
-annot<-read.csv("/Users/hoangduy/Library/Mobile Documents/com~apple~CloudDocs/Uni/Molmed/Ting's Tag/Data_Analyse_Practice_Ting/mouse_gene_ID_annotation.csv",
+meta.data<-read.csv("./bulk_metadata.csv")
+annot<-read.csv("./mouse_gene_ID_annotation.csv",
                 stringsAsFactors = FALSE)
-raw<-read.csv("/Users/hoangduy/Library/Mobile Documents/com~apple~CloudDocs/Uni/Molmed/Ting's Tag/Data_Analyse_Practice_Ting/Lena_2020_microglia_bulkRNA_allsamples_raw_counts.csv")
+raw<-read.csv("./microglia_bulkRNA_allsamples_raw_counts.csv")
 
 count.list
 meta.data
@@ -68,7 +68,7 @@ for(i in 1:6){
     dds_result<-DESeq(dds)
     dds_list[[i]]<-dds_result
     saveRDS(dds_result,
-            file = paste0("/Users/hoangduy/Library/Mobile Documents/com~apple~CloudDocs/Uni/Molmed/Ting's Tag/Data_Analyse_Practice_Ting/Lena_microglia_bulk_DESeq2_",
+            file = paste0("./microglia_bulk_DESeq2_",
                           combinations[[i]][1],"_vs_",combinations[[i]][2],
                           ".rds"))
     
@@ -162,7 +162,7 @@ str(result)
 #save
 for(n in 1:6){
     write.csv(result[[n]],
-              file = paste0("/Users/hoangduy/Library/Mobile Documents/com~apple~CloudDocs/Uni/Molmed/Ting's Tag/Data_Analyse_Practice_Ting/Lena_microglia_bulk_DESeq2_rankedresult_",
+              file = paste0("microglia_bulk_DESeq2_rankedresult_",
                             combinations[[n]][1],"_vs_",combinations[[n]][2],
                             ".csv"))
 }
