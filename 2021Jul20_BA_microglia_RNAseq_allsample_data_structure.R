@@ -1,7 +1,7 @@
 #Hoang Duy Nguyen
 #Bachelor thesis
 #2021Jul16
-#test DEG run for Lena microglia bulk RNA-seq data
+#test DEG run for microglia bulk RNA-seq data
 #running environment bulk env
 
 library(DESeq2)
@@ -9,7 +9,7 @@ library(dplyr)
 library(ggplot2)
 
 #create a list from the raw-data
-count.list<-list.files(path = "/Users/hoangduy/Library/Mobile Documents/com~apple~CloudDocs/Uni/Molmed/Ting's Tag/Data_Analyse_Practice_Ting/featureCounts on collection 55: Counts",
+count.list<-list.files(path = "./featureCounts on collection 55: Counts",
                        pattern = "tabular")
 count.list
 #create a matrix for the table later
@@ -47,7 +47,7 @@ meta.data$sample<-paste0(meta.data$genotype,"_",
 
 meta.data
 
-write.csv(meta.data,"/Users/hoangduy/Library/Mobile Documents/com~apple~CloudDocs/Uni/Molmed/Ting's Tag/Data_Analyse_Practice_Ting.csv")
+write.csv(meta.data,"./Data_Analyse.csv")
 
 #combine gene raw counts
 readtab<-function(x){
@@ -57,7 +57,7 @@ readtab<-function(x){
     return(temp)
 }
 
-setwd("/Users/hoangduy/Library/Mobile Documents/com~apple~CloudDocs/Uni/Molmed/Ting's Tag/Data_Analyse_Practice_Ting/featureCounts on collection 55: Counts")
+setwd("./featureCounts on collection 55: Counts")
 counts.files<-lapply(count.list, readtab)
 
 str(counts.files)
@@ -107,7 +107,7 @@ annot<-getBM(c("ensembl_gene_id", "mgi_symbol", "chromosome_name", "strand", "st
 
 head(annot)
 dim(annot)
-write.csv(annot,"/Users/hoangduy/Library/Mobile Documents/com~apple~CloudDocs/Uni/Molmed/Ting's Tag/Data_Analyse_Practice_Ting/mouse_gene_ID_annotation.csv")
+write.csv(annot,"./mouse_gene_ID_annotation.csv")
 
 raw$gene_symbol<-NA
 
@@ -120,5 +120,5 @@ head(raw)
 
 raw<-raw[,c(21,1:20)]
 head(raw)
-write.csv(raw,"/Users/hoangduy/Library/Mobile Documents/com~apple~CloudDocs/Uni/Molmed/Ting's Tag/Data_Analyse_Practice_Ting/Lena_2020_microglia_bulkRNA_allsamples_raw_counts.csv")
+write.csv(raw,"./microglia_bulkRNA_allsamples_raw_counts.csv")
 
