@@ -1,0 +1,78 @@
+---
+title: "SpecificAst_fromTing"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+setwd("/Users/hoangduy/Documents/Data_Analyse_Ting/PAP_Paper_Lena_TingsProject/")
+library(pheatmap)
+library(readxl)
+library(DESeq2)
+library(dplyr)
+library(ggplot2)
+library(stringr)
+```
+
+```{r}
+library(readxl)
+TPM_value_raw <- read_excel("Lena_2020_microglia_bulkRNA_TPM_value.xlsx")
+#remove outliers
+TPM_value_raw$MGcKO_Ctrl_18_TPM <- NULL
+TPM_value_raw$MGcKO_Ctrl_20_TPM <- NULL
+```
+
+
+```{r}
+#Gene list from Ting
+Astrocyte_genes <- c(<Data>)
+head(Astrocyte_genes)
+Astrocyte_genes <-  str_to_title(Astrocyte_genes)
+astrocyt_genes<-c(Astrocyte_genes)
+as.character(astrocyt_genes)
+```
+
+```{r}
+tpm_Duy<-TPM_value_raw[match(astrocyt_genes, TPM_value_raw$Gene_symbol),]
+tpm_Duy<-as.data.frame((tpm_Duy))
+tpm_Duy <- na.omit(tpm_Duy)
+rownames(tpm_Duy)<-tpm_Duy$Gene_symbol
+tpm_Duy
+```
+
+```{r}
+tpm_Duy <- filter_if(tpm_Duy, is.numeric, all_vars((.) != 0))
+#review
+tpm_Duy[,c(5:22)] %>%
+  pheatmap(cluster_cols = F,
+           cluster_rows = T,
+           scale = 'row',
+           show_rownames = T,
+           labels_row = tpm_Duy$Gene_symbol, 
+           labels_col = c("MGcKO","MGcKO","MGcKO","MGcKO","MGcKO","MGcKO_Ctrl","MGcKO_Ctrl","MGcKO_Ctrl","MGcKO_AD","MGcKO_AD","MGcKO_AD","MGcKO_AD","MGcKO_AD","MGcKO_AD_Ctrl","MGcKO_AD_Ctrl","MGcKO_AD_Ctrl","MGcKO_AD_Ctrl","MGcKO_AD_Ctrl"),
+           fontsize_row = 5, 
+           cutree_rows = NA, 
+           angle_col = 270,
+           cellheight = 4)
+```
+
+```{r}
+tpm_Duy[,c(5:22)] %>%
+  pheatmap(cluster_cols = F,
+           cluster_rows = T,
+           scale = 'row',
+           show_rownames = T,
+           labels_row = tpm_Duy$Gene_symbol, 
+           labels_col = c("MGcKO","MGcKO","MGcKO","MGcKO","MGcKO","MGcKO_Ctrl","MGcKO_Ctrl","MGcKO_Ctrl","MGcKO_AD","MGcKO_AD","MGcKO_AD","MGcKO_AD","MGcKO_AD","MGcKO_AD_Ctrl","MGcKO_AD_Ctrl","MGcKO_AD_Ctrl","MGcKO_AD_Ctrl","MGcKO_AD_Ctrl"),
+           fontsize_row = 5, 
+           cutree_rows = 3, 
+           angle_col = 270,
+           cellheight = 4,
+           filename = "/Users/hoangduy/Documents/Data_Analyse_Ting/PAP_Paper_Lena_TingsProject/Heatmap from Check_FromLena.png")
+```
+
+
+
