@@ -1,10 +1,11 @@
-
+#Hoang Duy Nguyen, BA
+#Gene Cluster
 #title: "just give the gene name"
 #output: html_document
 
   
 
-setwd("/Users/hoangduy/Documents/Data_Analyse_Ting/PAP_Paper_Lena_TingsProject/")
+setwd("./BA_Project/")
 library(pheatmap)
 library(readxl)
 library(DESeq2)
@@ -16,7 +17,7 @@ library(matrixStats)
 library(stringr)
 
 #Import Dataset
-TPM_value_raw <- read_excel("Lena_2020_microglia_bulkRNA_TPM_value.xlsx")
+TPM_value_raw <- read_excel("microglia_bulkRNA_TPM_value.xlsx")
 
 #remove outliers
 TPM_value_raw$MGcKO_Ctrl_18_TPM <- NULL
@@ -24,7 +25,7 @@ TPM_value_raw$MGcKO_Ctrl_20_TPM <- NULL
 
 
 #choose the genes
-Genes<-c("Scya1")
+Genes<-c("<GeneName>")
 as.character(Genes)
 
 Genes_data <-data.frame()
@@ -93,7 +94,7 @@ warning(k)
 print(p)
 
 for (k in Genes) {
-  file_name = paste("Cluster_LenaGenes_Check", k, ".tiff", sep="")
+  file_name = paste("Cluster_", k, ".tiff", sep="")
   tiff(file_name)
   print(plot_list[[k]])
   dev.off()
